@@ -1,22 +1,25 @@
 # NLP
 Natural Language Processing techniques give machines ability to ready, understand, and derive meaning from human languages.
 
-There are several applications:
+#Applications#
 
-Machine Translation 
+Machine Translation, Speech Recognition, Sentiment Analysis, Question Answering, Automatic Summarization, Chatbots, Text Classification, Character Recognition, Spell Checking
 
-Speech Recognition
+#Topic Modeling#
 
-Sentiment Analysis
+##Useful Model##
+- Latent Dirichlet Allocation (LDA)
+  - Latent Dirichlet Allocation with Non-negative Matrix Factorization (LDA+NMF)
+  - Hierarchical Latent Dirichlet Allocation (hLDA)
+- Latent Semantic Analysis (LSA)
+- Probabilistic Latent Semantic Analysis (PLSA)
+- Correlated Topic Model (CTM)
+- Author Topic Model
 
-Question Answering
 
-Automatic Summarization
+##Tools##
+- Visualization: pyLDAvis
+- Quick LDA Topic Modeling:<https://lettier.com/projects/lda-topic-modeling/>
 
-Chatbots
-
-Text Classification
-
-Character Recognition 
-
-Spell Checking
+##Paper##
+- [Latent Dirichlet Allocation](https://ai.stanford.edu/~ang/papers/jair03-lda.pdf/"Latent Dirichlet Allocation")
