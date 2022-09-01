@@ -9,19 +9,19 @@ Machine Translation, Speech Recognition, Sentiment Analysis, Question Answering,
 Topic Modeling
 --------------- 
 
-###Useful Model###
-- Latent Dirichlet Allocation (LDA)
-  - Latent Dirichlet Allocation with Non-negative Matrix Factorization (LDA+NMF)
-  - Hierarchical Latent Dirichlet Allocation (hLDA)
-- Latent Semantic Analysis (LSA)
-- Probabilistic Latent Semantic Analysis (PLSA)
-- Correlated Topic Model (CTM)
-- Author Topic Model
+- Useful Model
+ - Latent Dirichlet Allocation (LDA)
+   - Latent Dirichlet Allocation with Non-negative Matrix Factorization (LDA&NMF)
+   - Hierarchical Latent Dirichlet Allocation (hLDA)
+ - Latent Semantic Analysis (LSA)
+ - Probabilistic Latent Semantic Analysis (PLSA)
+ - Correlated Topic Model (CTM)
+ - Author Topic Model
 
 
-###Tools###
-- Visualization: pyLDAvis
-- Quick LDA Topic Modeling:<https://lettier.com/projects/lda-topic-modeling/>
+- Tools
+ - Visualization: [pyLDAvis](https://github.com/bmabey/pyLDAvis/tree/master/notebooks)
+ - Quick LDA Topic Modeling:<https://lettier.com/projects/lda-topic-modeling/>
 
 Paper
 --------------- 
