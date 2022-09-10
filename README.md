@@ -26,3 +26,4 @@ Topic Modeling
 Paper
 --------------- 
 - [Latent Dirichlet Allocation](https://ai.stanford.edu/~ang/papers/jair03-lda.pdf)
+- [Attention is All You Need (Transformer)](https://arxiv.org/pdf/1706.03762.pdf)
