@@ -28,3 +28,5 @@ Paper
 - [Latent Dirichlet Allocation](https://ai.stanford.edu/~ang/papers/jair03-lda.pdf)
 - [Attention is All You Need (Transformer)](https://arxiv.org/pdf/1706.03762.pdf)
 - [Algorithms for Non-negative Matrix Factorization](https://proceedings.neurips.cc/paper/2000/file/f9d1152547c0bde01830b7e8bd60024c-Paper.pdf)
+- [BERT: Pre-training of Deep Bidirectional Transformers for
+Language Understanding](https://arxiv.org/pdf/1810.04805.pdf)
