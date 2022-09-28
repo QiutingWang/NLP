@@ -11,16 +11,6 @@ import matplotlib.pyplot as plt
 import math
 
 
-#pad matrix:  q from encoder, k from decoder
-def get_attn_pad_mask(seq_q, seq_k):
-    batch_size, len_q = seq_q.size()
-    batch_size, len_k = seq_k.size()
-    # eq(zero) is PAD token 判断哪些是pad过了
-    pad_attn_mask = seq_k.data.eq(0).unsqueeze(1)  # batch_size x 1 x len_k(=len_q), one is masking
-    return pad_attn_mask.expand(batch_size, len_q, len_k)  # batch_size x len_q x len_k
-
-
-
 
 #Positional Encoding: reference the formula in paper
 class PositionalEncoding(nn.Module):
@@ -46,21 +36,6 @@ class PositionalEncoding(nn.Module):
 
 
 
-
-class EncoderLayer(nn.Module):
-  def __init__(self):
-      super(EncoderLayer, self).__init__()
-      self.enc_self_attn = MultiHeadAttention()
-      self.pos_ffn = PoswiseFeedForwardNet()
-
-  def forward(self, enc_inputs, enc_self_attn_mask):
-      enc_outputs, attn = self.enc_self_attn(enc_inputs, enc_inputs, enc_inputs, enc_self_attn_mask) # enc_inputs to same Q,K,V， padding information
-      enc_outputs = self.pos_ffn(enc_outputs) # enc_outputs: [batch_size x len_q x d_model]
-      return enc_outputs, attn
-
-
-
-
 # three parts: Word Embedding, positional embedding, Encoder layer
 class Encoder(nn.Model):
   def __init__(self):
@@ -75,14 +50,6 @@ class Encoder(nn.Model):
     #output shape:[batchsize, src_len, d_model], use .src_emb() to fix the position with indexing to get a vector
     enc_outputs=self.pos_emb(enc_outputs.transpose(0,1)).transpose(0,1) 
     #position encoding: accept encoder outputs; add the position encoder and word embedding
-    enc_self_attn_mask=get_attn_pad_mask(enc_inputs,enc_inputs)
-    #tell the model which part is padding
-
-    enc_self_attns=[]
-    for layer in self.layers: #把每一层的输出作为下一层的输入
-        enc_outputs, enc_self_attn = layer(enc_outputs, enc_self_attn_mask)
-        enc_self_attns.append(enc_self_attn)
-    return enc_outputs, enc_self_attns
 
 
 
@@ -110,6 +77,7 @@ class Transformer(nn.Model): #nn.Model:Base class for all neural network modules
     #for output layer:
     dec_logits=self.projection(dec_outputs)  #shape:[batch_size*src_vocab_size*tgt_vocab_size]
     return dec_logits.view(-1,dec_logits.size(-1),enc_self_attns,dec_enc_attns)
+
 
 
 
