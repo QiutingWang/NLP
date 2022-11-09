@@ -35,3 +35,4 @@ Paper
 Language Understanding](https://arxiv.org/pdf/1810.04805.pdf)
 - [T5: Exploring the Limits of Transfer Learning with a Unified
 Text-to-Text Transformer](https://arxiv.org/pdf/1910.10683.pdf)
+- [GPT-3: Language Models are Few-Shot Learners](https://arxiv.org/pdf/2005.14165.pdf)
