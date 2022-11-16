@@ -35,6 +35,7 @@ Paper
 Language Understanding](https://arxiv.org/pdf/1810.04805.pdf)
 - [T5: Exploring the Limits of Transfer Learning with a Unified
 Text-to-Text Transformer](https://arxiv.org/pdf/1910.10683.pdf)
+- [GPT-2: Language Models are Unsupervised Multitask Learners](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
 - [GPT-3: Language Models are Few-Shot Learners](https://arxiv.org/pdf/2005.14165.pdf)
 - [Prompt Learning: Pre-train, Prompt, and Predict: A Systematic Survey of
 Prompting Methods in Natural Language Processing](https://arxiv.org/pdf/2107.13586.pdf)
