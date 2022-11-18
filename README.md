@@ -39,4 +39,5 @@ Text-to-Text Transformer](https://arxiv.org/pdf/1910.10683.pdf)
 - [GPT-3: Language Models are Few-Shot Learners](https://arxiv.org/pdf/2005.14165.pdf)
 - [Prompt Learning: Pre-train, Prompt, and Predict: A Systematic Survey of
 Prompting Methods in Natural Language Processing](https://arxiv.org/pdf/2107.13586.pdf)
+- [XLNet: Generalized Autoregressive Pretraining for Language Understanding](https://arxiv.org/pdf/1906.08237.pdf)
 
