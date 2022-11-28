@@ -33,6 +33,7 @@ Paper
 - [Algorithms for Non-negative Matrix Factorization](https://proceedings.neurips.cc/paper/2000/file/f9d1152547c0bde01830b7e8bd60024c-Paper.pdf)
 - [BERT: Pre-training of Deep Bidirectional Transformers for
 Language Understanding](https://arxiv.org/pdf/1810.04805.pdf)
+- [BERTopic: Neural topic modeling with a class-based TF-IDF procedure](https://arxiv.org/pdf/2203.05794.pdf)
 - [T5: Exploring the Limits of Transfer Learning with a Unified
 Text-to-Text Transformer](https://arxiv.org/pdf/1910.10683.pdf)
 - [GPT-2: Language Models are Unsupervised Multitask Learners](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
