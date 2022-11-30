@@ -41,4 +41,7 @@ Text-to-Text Transformer](https://arxiv.org/pdf/1910.10683.pdf)
 - [Prompt Learning: Pre-train, Prompt, and Predict: A Systematic Survey of
 Prompting Methods in Natural Language Processing](https://arxiv.org/pdf/2107.13586.pdf)
 - [XLNet: Generalized Autoregressive Pretraining for Language Understanding](https://arxiv.org/pdf/1906.08237.pdf)
+- [BART: Denoising Sequence-to-Sequence Pre-training for Natural
+Language Generation, Translation, and Comprehension](https://arxiv.org/pdf/1910.13461.pdf)
+- [UniLM: Unified Language Model Pre-training for Natural Language Understanding and Generation](https://arxiv.org/pdf/1905.03197.pdf)
 
