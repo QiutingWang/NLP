@@ -17,6 +17,7 @@ Topic Modeling
   - Probabilistic Latent Semantic Analysis (PLSA)
   - Correlated Topic Model (CTM)
   - Author Topic Model
+  - BERTopic
 
 
 - Tools
@@ -44,4 +45,5 @@ Prompting Methods in Natural Language Processing](https://arxiv.org/pdf/2107.135
 - [BART: Denoising Sequence-to-Sequence Pre-training for Natural
 Language Generation, Translation, and Comprehension](https://arxiv.org/pdf/1910.13461.pdf)
 - [UniLM: Unified Language Model Pre-training for Natural Language Understanding and Generation](https://arxiv.org/pdf/1905.03197.pdf)
+- [RoBERTa: A Robustly Optimized BERT Pretraining Approach](https://arxiv.org/pdf/1907.11692.pdf)
 
