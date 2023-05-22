@@ -27,6 +27,16 @@ Topic Modeling
      - [exBert](https://huggingface.co/exbert/?model=bert-base-cased&modelKind=bidirectional&sentence=The%20girl%20ran%20to%20a%20local%20pub%20to%20escape%20the%20din%20of%20her%20city.&layer=0&heads=..0,1,2,3,4,5,6,7,8,9,10,11&threshold=0.7&tokenInd=null&tokenSide=null&maskInds=..&hideClsSep=true)
   - Quick LDA Topic Modeling:<https://lettier.com/projects/lda-topic-modeling/>
 
+
+LLM Base-Model
+---------------
+- LLaMA
+- GLM
+- BLOOM
+- GPT
+- PaLM 
+
+
 Paper
 --------------- 
 - [Latent Dirichlet Allocation](https://ai.stanford.edu/~ang/papers/jair03-lda.pdf)
@@ -46,4 +56,5 @@ Prompting Methods in Natural Language Processing](https://arxiv.org/pdf/2107.135
 Language Generation, Translation, and Comprehension](https://arxiv.org/pdf/1910.13461.pdf)
 - [UniLM: Unified Language Model Pre-training for Natural Language Understanding and Generation](https://arxiv.org/pdf/1905.03197.pdf)
 - [RoBERTa: A Robustly Optimized BERT Pretraining Approach](https://arxiv.org/pdf/1907.11692.pdf)
+- [PaLM: Scaling Language Modeling with Pathways](https://arxiv.org/pdf/2204.02311v5.pdf)
 
