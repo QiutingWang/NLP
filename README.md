@@ -36,6 +36,17 @@ LLM Base-Model
 - GPT
 - PaLM 
 
+Fine-Tuning Technique
+---------------------
+
+- LoRA
+- Prefix Tuning
+- P-Tuning
+- AdaLoRA
+- QLoRA
+- Adapter
+- MaM
+- RLHF
 
 Paper
 --------------- 
@@ -57,4 +68,5 @@ Language Generation, Translation, and Comprehension](https://arxiv.org/pdf/1910.
 - [UniLM: Unified Language Model Pre-training for Natural Language Understanding and Generation](https://arxiv.org/pdf/1905.03197.pdf)
 - [RoBERTa: A Robustly Optimized BERT Pretraining Approach](https://arxiv.org/pdf/1907.11692.pdf)
 - [PaLM: Scaling Language Modeling with Pathways](https://arxiv.org/pdf/2204.02311v5.pdf)
-
+- [Scaling Down to Scale Up: A Guide to Parameter-Efficient Fine-Tuning](https://arxiv.org/pdf/2303.15647.pdf)
+- [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/pdf/2106.09685.pdf)
