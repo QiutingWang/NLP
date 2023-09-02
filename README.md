@@ -76,3 +76,4 @@ Language Generation, Translation, and Comprehension](https://arxiv.org/pdf/1910.
 - [Prefix: Prefix-Tuning: Optimizing Continuous Prompts for Generation](https://arxiv.org/pdf/2101.00190.pdf)
 - [Adapter: Parameter-Efficient Transfer Learning for NLP](https://arxiv.org/pdf/1902.00751.pdf)
 - [ROUGE: A Package for Automatic Evaluation of Summaries](https://aclanthology.org/W04-1013.pdf)
+- [Activation Functions in Deep Learning: A Comprehensive Survey and Benchmark](https://arxiv.org/pdf/2109.14545.pdf)
