@@ -1,0 +1,139 @@
+# Generative AI with LLM Week3
+
+- Why we need align model with human values:
+  - model can provide toxic and aggressive language, dangerous information
+  - misleading and incorrect answers will be provided
+  - help people complete criminal behavior
+  - in summary: we need Helpful, Honest, and Harmless(HHH) answers.
+- RLHF Components:
+  - RL:
+    - an agent learns to make decisions by taking actions in an environment
+    - goal: maximize reward received for actions
+    - totally, the important elements are:
+      - agent(model, the RL policy), environment, action, reward/penalize, state
+      - playout: the series of actions and corresponding states
+      - rollout: the sequence of actions
+  - For RLHF:
+    - Agent: Instruct LLM
+    - Object: generate aligned text
+    - Environment: the context window
+    - State: current context contained in the context window
+    - Action(also called Q-value): text generation
+    - Reward: assigned based on how closely the completions align with human preferences
+      - we can use an additional model, the `reward model`
+        - to classify the output and evaluate the degree of alignment
+        - to achieve the *encoding* the preferences that have been learnt from human feedback
+        - to help model update its weights
+- How RLHF obtain human feedback?
+  - the language model we choose should have ability to deal specific tasks
+  - collect human feedback:
+    - define model alignment criterion
+    - obtain the generated prompt-response sets' human feedback via <u>labeler workforce</u>
+      - eg: by ranking the answers
+    - then iterations for many times, *building up a dataset* used to train the reward model, which finally carries out this work without human intervention.
+    - the quality of obtained human feedback depends on <u>the clarity of instructions</u>.
+      - the sample instructions are written to *guide human labelers*. 
+        - The more detailed, the higher likelihood to have a high quality.
+        - eg: what to do if they identify a tie, when to give the special label instead of giving prompt a ranking order
+  - convert labeled data to a *readable format* for training
+    - ranking-->pairwise(prompt-completion) data for reward model
+      - Given N alternative generated completions per prompt, we get N pair combinations
+      - for each pair, we assign the preferred response as 1, another assigned as 0
+      - reorder the prompt pairs into preferred option comes first, denote completion as {$y_j,y_k$}
+        - Namely, $y_j$ is the preferred answer
+- Reward Model
+  - functions: to predict preferred completion from {$y_j,y_k$} for prompt $x$
+  - it is also usually a language model
+  - used to minimize the loss function we set $log(\sigma(r_j-r_k))$
+  - use as a binary classifier providing reward value
+    - higher value represents, more align response
+    - after we apply the <u>activation function</u> to the loss function-->we get probabilities
+  - pass the reward value to RL algorithm to update LLM weights-->called `RL updated LLM`
+  - iteration after the model passes a threshold value OR a pre-defined maximum number of steps, with an increasing reward values
+    - types of RL algorithms we can choose:
+      - PPO(Open AI used it)
+      - Q-learning
+      - QDN
+      - Policy Gradient Method
+      - Actor-Critic Method
+      - NLPO
+      - TRPO
+    - Resource:
+      - <https://github.com/huggingface/trl>
+      - <https://github.com/allenai/RL4LMs>
+- Proximal Policy Optimization(PPO)
+  - it optimizes a policy, making LLM more aligned with human preferences-->the reward is maximized
+  - *make updates* to the LLM. The updates are small and within *a bounded region*(called `trust region`), resulting in a more stable learning.和original LLM的版本很贴近
+  - the detailed procedures:
+    - start point: initialize PPO with instruct LLM
+    - 2 phases:
+      - **create completions** of given prompts, and determine the loss and reward
+        - access the outcome of *current* model从HHH的角度
+        - captures the human preference, related calculations:
+          - the value function $V_\theta(s)$:
+            - **estimated the future total reward** given the <u>state</u>(the current sequence of tokens) $s$
+            - can be considered as the baseline to evaluate the quality of the completions against the <u>alignment criteria</u>
+          - known/actual future total reward: $(\sum_{t=0}^T \gamma^tr_t|s_0=s)$
+          - value loss$L^{VF}$:
+            - function: $L^{VF}$=$\frac{1}{2}||estimated-actual||_2^2$
+            - making the future reward estimation more accurate
+            - Goal: minimize the value loss
+            - it is used for *advantage estimation* in stage2
+      - **model update**
+        - a series of small through back-propagation updates moves the model into a higher reward iteratively.
+        - **policy loss** calculation:
+          - Functions: $L^{policy}=min(\frac{\pi_{\theta}(a_t|s_t)}{\pi_{\theta_{old}}(a_t|s_t)}\hat A_t, clip(\frac{\pi_{\theta}(a_t|s_t)}{\pi_{\theta_{old}}(a_t|s_t)}, 1-\epsilon,1+\epsilon)\hat A_t)$
+            - $\pi_\theta$: model probability distribution of next token $a_t$(action) given the current prompt $s_t$(state)
+            - first expression: 
+              - *denominator*: the probability of the next token with the initial LLM(frozen)
+              - numerator: the probability of the next token through the updated LLM
+            - $\hat A_t$:
+              - called `advantage term`
+              - estimate how much better/worse the current action is compared to all possible actions at that state
+              - in the 3D graph: higher path, higher reward, better completion
+              - when $\hat A_t>0$, the suggested token is *better than the average*→increasing the probability of the current token can be a good strategy that leads to higher rewards. When $\hat A_t<0$,相反
+            - the second expression:
+              - <u>define a region</u>,trust region, where two policies are near each other with small errors
+              - guardrails: keep the LLM stays in trust region, as well as taking minimum
+          - the advantage estimates are valid, when old and new policies are very **close** to each other
+        - **Entropy Loss** calculation:
+          - function: $L^{entropy}=entropy(\pi_{\theta}(·|s_t))$
+          - if we keep the entropy loss low, the prompt is completed almost in the same way. *Higher* entropy guides the LLM towards *more creativity*.
+          - the differences between entropy and temperature:
+            - temperature: make an influence at the inference time
+            - entropy: make an influence during training
+        - the whole objective function:
+          - 🌟function: $L^{PPO}=L^{policy}+c_1L^{VF}+c2L^{entropy}$
+          - a weighted sum combining the three components together
+            - $c_1, c_2$: hyperparameter
+- Problem: Reward Hacking
+  - explanation: favoring the actions that maximize the reward, even if the actions don't align well with the original objective.
+    - the language sounds very exaggerated.
+    - generate nonsensical, grammatically incorrect text
+  - Solution:
+    - use the original instruct LLM as performance reference, called `reference model`
+      - the weights of reference model are frozen without any updates, maintaining the single reference model to compare to
+    - pass the prompt to both reference model and RL-updated LLM
+    - compare the two completions, calculate the <u>KL divergence</u>
+      - a statistical measure of how different 2 probability distributions are
+      - determine how much the updated model has diverged from the reference
+      - for each generated token across the whole vocabulary off the LLM, additionally with softmax function
+    - add the KL to reward calculation, *penalizing* the *RL-updated model* if it shifts too far from the reference model
+    - only update the weights of PEFT adapter, not the full weights of LLM, reusing both reference model and PPO model. That reduces the memory required during training by half.
+  - Assess model performance:
+    - **toxicity score**: the probability of the negative class average across the completions
+      - compared instruct LLM the reference model's toxicity score with that of human aligned LLM
+- Scale Human Feedback
+  - solution: model self-supervision, **Constitutional AI**(CAI)
+    - to train model use a set of rules and principles that govern model's behavior, with <u>self critique and revise responses</u>
+    - give the AI feedback, instead of human feedback, reducing labor workforce and time required, called `RLAIF`.
+    - 2 stages:
+      - Reflection Stage
+        - helpful LLM, red teaming:generate harmful responses
+        - ask model to *detect* and *critique* own harmful responses according to the <u>constitutional principles</u>, make the *revisions*
+        - fine-tune the model using <u>pairs of red team prompts & revised constitutional responses</u> as the training data
+      - Reinforcement Stage
+        - use fine-tuned model *generate responses* to red teaming prompts
+        - ask the model "which response is preferred" according to the constitutional principles
+        - use the model generated preference dataset to train reward model
+        - fine-tune the LLM with preference with PPO
