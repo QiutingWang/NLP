@@ -77,6 +77,6 @@ Language Generation, Translation, and Comprehension](https://arxiv.org/pdf/1910.
 - [Adapter: Parameter-Efficient Transfer Learning for NLP](https://arxiv.org/pdf/1902.00751.pdf)
 - [ROUGE: A Package for Automatic Evaluation of Summaries](https://aclanthology.org/W04-1013.pdf)
 - [Activation Functions in Deep Learning: A Comprehensive Survey and Benchmark](https://arxiv.org/pdf/2109.14545.pdf)
-- [Constitutional AI: Harmlessness from AI Feedback] (https://arxiv.org/pdf/2212.08073.pdf)
+- [Constitutional AI: Harmlessness from AI Feedback](https://arxiv.org/pdf/2212.08073.pdf)
 - [Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/pdf/2201.11903.pdf)
 - [Proximal Policy Optimization Algorithms(PPO)](https://arxiv.org/pdf/1707.06347.pdf)
