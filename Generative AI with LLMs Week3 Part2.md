@@ -1,0 +1,107 @@
+# Generative AI with LLMs Week3 Part2
+
+- Application and Integration
+  - optimize and deploy model for inference
+  - build LLM-Powered Applications
+- Optimization:
+  - reduce the size of LLM while still maintain its performance
+  - 3 Types:
+    - Distillation
+      - use the larger teacher model to train the smaller student model
+        - The student model is trained to mimic the output distribution of the teacher model.
+      - freeze the teacher model weights, generate the completion for the training data
+      - generate the completion for the training data using student model
+      - 🌟Achieved by *minimizing* the loss function called **Distillation Loss**
+        - the difference between teacher model output <u>soft labels</u> and student model output <u>soft predictions</u> both after the *softmax layer*
+        - add the `temperature parameter` to the softmax function $T$
+          - affect the smoothness of output distribution
+          - higher temperature, higher creativity of the model
+          - $T>1$: the probability distribution becomes broader and less strongly peaked, providing tokens that are similar to *ground truth tokens*
+        - train the student model with ground truth hard labels gets the output called <u>hard predictions</u>
+          - Here we set $T=1$
+          - the loss between the hard predictions and hard labels called **Student Loss**
+      - Combine Distillation Loss & Student Loss-->*update the weights* of student model via back-propagation
+      - Benefits: use only the smaller student LLM is enough.
+      - Backwards: distillation does not make effect on <u>generative decoder models</u>. But it is fit for encoder-only model, such as Bert-->DistillBert, TinyBert
+      - Types:
+        - response/feature/relation-based knowledge
+        - offline/online/self-distillation
+        - KD Algorithm:
+          - Multi-teacher
+          - Cross-Modal
+          - Data Free
+          - Quantized
+          - Lifelong
+          - Attention-based
+          - Graph-based
+          - NAS-based
+    - Quantization: FP32-->FP16/INT8/BFLOAT16
+      - Quantization-Aware Training(QAT)在训练过程中
+        - has ability to distill large LLaMA model weights and KV cache down to 4 bits
+      - Post-Training Quantization(PTQ)
+        - transform model weights into a *lower precision representation*
+        - 模型训练加速效果很好
+        - applied to <u>model weights or activation layers</u>
+        - require *calibration*较准线 to capture the dynamic range of original parameter values
+    - Pruning:
+      - remove redundant model parameters which contribute little to performance
+      - 速度提升并没有很大
+      - remove model weights with value≈=0
+      - methods:
+        - Full model re-training
+        - post-training
+        - PEFT
+        - parameter sharing
+      - Types: differences lie in pruning targets and the output network structure
+        - Unstructured:
+          - prunes individual parameters
+          - get irregular sparse structure
+          - drawbacks: result in additional LLM retraining to regain accuracy
+        - Structured:
+          - maintain overall network structure
+          - remove connections or hierarchical sparse structure based on rules
+          - advantage: reduce model complexity and memory storage required
+    - Low Rank Factorization: employ matrix decomposition to find redundancy of model parameters
+  - Matrices:
+    - numbers of model parameter
+    - model size: disk space, memory footprint
+    - compression ratio:
+      - the ratio between the size of original LLM & that of compressed LLM
+      - higher compression ratio, more efficient compression
+    - inference time
+      - measures the time taken by the LLM to process and generate responses for input data
+    - FLOPs: measures <u>numbers of arithmetic operations</u> involving floating-point numbers
+  - Benchmark and Datasets:
+    - GLUE, SuperGLUE, Big-Bench, LAMA/StrategyQA(reasoning ability of LM)
+- Some Challenges:
+  - struggle with complex math
+  - internal knowledge held by model cuts off during pre-training只能知道预训练之前input的知识
+  - Hallucination幻觉: the *tendency* to generate text, even when they don't know the answer
+    - Type
+      - 上下文
+      - 输入冲突
+      - 事实冲突
+- Solution:
+  - generally, connect the LLM to external data sources and applications
+  - RAG
+  - CoVe(Chain of Verification)
+- LLM-Powered Applications
+  - procedure: user application<--input(output)-->Orchestration library<--input(output)-->LLM
+    - Orchestration library:
+      - connected with external data sources with docs, databases, web, <u>vector store</u>, or existing APIs of other application
+      - eg: LangChain
+  - Retrieval Augmented Generation(RAG)
+    - help the model understanding the updated world, reducing cost for retraining LLM with new data, more flexible
+    - give the additional external data at inference time
+    - increase *relevance and accuracy* of the completion
+    - Components:
+      - Retriever
+        - <u>query encoder, external data sources</u>: find the most relevant documents(Top-K) from the data source+new information with the original user query
+        - passed to LLM(Generator), producing the completion that contains the correct answer
+          - Generator must be Seq2Seq model, eg: BART, T5
+    - Data preparation for vector store:
+      - data must with acceptable inside context window(few thousand tokens)
+        - we need to split long documents into several chunks. LangChain can solve this step.
+      - data must be in acceptable format(`embedding vectors`) at reference time, then stored in *vector stores* that allows fast searching of datasets
+        - each text in vector store is identified by a key
+        - citation is allowable
