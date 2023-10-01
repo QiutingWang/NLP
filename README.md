@@ -80,3 +80,7 @@ Language Generation, Translation, and Comprehension](https://arxiv.org/pdf/1910.
 - [Constitutional AI: Harmlessness from AI Feedback](https://arxiv.org/pdf/2212.08073.pdf)
 - [Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/pdf/2201.11903.pdf)
 - [Proximal Policy Optimization Algorithms(PPO)](https://arxiv.org/pdf/1707.06347.pdf)
+- [Knowledge Distillation: A Survey](https://link.springer.com/article/10.1007/s11263-021-01453-z)
+- [A Survey on Model Compression for Large Language Models](https://arxiv.org/pdf/2308.07633.pdf)
+- [DistillBert](https://arxiv.org/pdf/1910.01108.pdf)
+- [TinyBert: Distilling BERT for Natural Language Understanding](https://aclanthology.org/2020.findings-emnlp.372/)
