@@ -84,3 +84,5 @@ Language Generation, Translation, and Comprehension](https://arxiv.org/pdf/1910.
 - [A Survey on Model Compression for Large Language Models](https://arxiv.org/pdf/2308.07633.pdf)
 - [DistillBert](https://arxiv.org/pdf/1910.01108.pdf)
 - [TinyBert: Distilling BERT for Natural Language Understanding](https://aclanthology.org/2020.findings-emnlp.372/)
+- [RAG: Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/pdf/2005.11401.pdf)
+- [ReAct](https://arxiv.org/pdf/2210.03629.pdf)
