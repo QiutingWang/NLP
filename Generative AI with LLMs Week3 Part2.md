@@ -73,6 +73,7 @@
     - FLOPs: measures <u>numbers of arithmetic operations</u> involving floating-point numbers
   - Benchmark and Datasets:
     - GLUE, SuperGLUE, Big-Bench, LAMA/StrategyQA(reasoning ability of LM)
+  - Materials: Large Transformer Model Inference Optimization <https://lilianweng.github.io/posts/2023-01-10-inference-optimization/>
 - Some Challenges:
   - struggle with complex math
   - internal knowledge held by model cuts off during pre-training只能知道预训练之前input的知识
@@ -105,3 +106,55 @@
       - data must be in acceptable format(`embedding vectors`) at reference time, then stored in *vector stores* that allows fast searching of datasets
         - each text in vector store is identified by a key
         - citation is allowable
+- Requirements of External Application Interaction:
+  - plan actions:
+    - declare what actions to take
+    - instructions need to be understandable and relevant
+  - Format outputs: for being understandable to broader applications
+    - eg: generate python, SQL queries
+  - Validate actions
+    - collect required user information and make sure there are included in the completion
+  - Important Materials: LLM Powered Autonomous Agents <https://lilianweng.github.io/posts/2023-06-23-agent/>
+- CoT:
+  - break the complex problem down into steps, think like human-->a series of intermediate reasoning steps, the chain of thought
+  - pass one-shot and another question to LLM, CoT helps it generate an answer with similar structure
+  - application: especially in math, coding, commonsense reasoning, symbolic reasoning
+  - Advantages:
+    - 困难分解,additional computation be allocated reasonably.
+    - provide *chances to debug* by the visible reasoning window
+- Program-Aided LM(PAL):
+  - process:
+    - Structure the example first:
+      - questions, reasoning steps-->computer code, PAL execution(by an coding interpreter)
+      - the text of each reasoning step begins with a pound sign as a line of comment
+    - the objective new question should be shown to solve
+    - pass the combined prompt to the LLM
+      - generate a programming script
+      - put them into a code interpreter, generate a specific answer
+    - combine the answer with PAL prompt, get the PAL format solution
+    - pass the updated prompt to LLM, generating the completion with correct answer
+  - LLM: application reasoning engine, create the plan of action; PAL: one action to be executed; 
+- ReAct:
+  - <https://python.langchain.com/docs/modules/agents/agent_types/react.html>
+  - a prompting strategy, called Synergizing Reasoning and Actions: CoT reasoning + action
+  - reduce 幻觉 and error propagation连续犯错
+  - procedures: 
+    - few-shot instructions
+    - question->thought`think[]`:identify the problems and actions we need to take->action:`动[宾]结构`组成(trigger the specific API actions)->observation: the result of the action
+      - the allowed actions:
+        - `search[entity]`: return first 5 sentences from corresponding entities
+        - `finish[answer]`: finish the current task with answer
+        - `lookup[keyword]`: return the next sentence in the page containing the keyword
+    - repeat the cycle as many time as necessary until obtain the final answer
+    - question to be answered
+  - set decoding temperature $T=0.7$ during the inference in CoT
+  - Evaluation metrics:
+    - reasoning error: wrong reasoning trace
+    - search result error: return empty or doesn't contain useful information
+    - hallucination
+    - label ambiguity: right prediction but without matching right label
+- LangChain components:
+  - prompt templates: format input examples and model completions
+  - memory: use to store interactions with LLM
+  - Pre-built tools
+  - Agents: interpret input from users, determine which tools are used to complete the task
