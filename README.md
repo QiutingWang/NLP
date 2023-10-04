@@ -86,3 +86,4 @@ Language Generation, Translation, and Comprehension](https://arxiv.org/pdf/1910.
 - [RAG: Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/pdf/2005.11401.pdf)
 - [ReAct](https://arxiv.org/pdf/2210.03629.pdf)
 - [CoT: Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/pdf/2201.11903.pdf)
+- [A Survey of Large Language Models](https://arxiv.org/pdf/2303.18223.pdf)
