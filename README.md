@@ -87,3 +87,8 @@ Language Generation, Translation, and Comprehension](https://arxiv.org/pdf/1910.
 - [ReAct](https://arxiv.org/pdf/2210.03629.pdf)
 - [CoT: Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/pdf/2201.11903.pdf)
 - [A Survey of Large Language Models](https://arxiv.org/pdf/2303.18223.pdf)
+- [Secrets of RLHF in Large Language Models Part I: PPO](https://arxiv.org/pdf/2307.04964.pdf)
+- [Llama 2: Open Foundation and Fine-Tuned Chat Models](https://arxiv.org/pdf/2307.09288.pdf)
+- [Baichuan 2: Open Large-scale Language Models](https://arxiv.org/pdf/2309.10305.pdf)
+- [GLM-130B:An Open Bilingual Pre-trained Model](https://arxiv.org/pdf/2210.02414.pdf)
+
